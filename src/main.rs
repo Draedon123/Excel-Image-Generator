@@ -1,4 +1,5 @@
-use excel_image_generator::config::Config;
+use excel_image_generator::{config::Config, run};
+
 use std::{
   env,
   io::{self, Read, Write},
@@ -14,6 +15,8 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
   });
 
   println!("{:?}", config);
+
+  run(&config);
 
   Ok(())
 }

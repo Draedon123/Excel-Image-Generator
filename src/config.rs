@@ -32,7 +32,7 @@ impl<'a> Config<'a> {
     let path: &'a path::Path = path::Path::new(&args[2]);
 
     if !path.exists() {
-      return Err(String::from(format!("Path {} does not exist", args[2])));
+      return Err(format!("Path {} does not exist", args[2]));
     }
 
     Ok(Self { mode, path })
