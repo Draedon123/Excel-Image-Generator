@@ -1,3 +1,5 @@
+use std::path;
+
 #[derive(Debug)]
 pub enum Mode {
   Encode(),
@@ -5,13 +7,13 @@ pub enum Mode {
 }
 
 #[derive(Debug)]
-pub struct Config {
+pub struct Config<'a> {
   pub mode: Mode,
-  pub path: String,
+  pub path: &'a path::Path,
 }
 
-impl Config {
-  pub fn new(args: &Vec<String>) -> Result<Self, String> {
+impl<'a> Config<'a> {
+  pub fn new(args: &'a Vec<String>) -> Result<Self, String> {
     if args.len() < 3 {
       return Err(String::from("Not enough arguments (expected 2)"));
     };
@@ -27,7 +29,11 @@ impl Config {
       ));
     };
 
-    let path = args[2].clone();
+    let path: &'a path::Path = path::Path::new(&args[2]);
+
+    if !path.exists() {
+      return Err(String::from(format!("Path {} does not exist", args[2])));
+    }
 
     Ok(Self { mode, path })
   }
