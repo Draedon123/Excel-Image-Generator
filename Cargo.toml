@@ -5,3 +5,4 @@ edition = "2024"
 
 [dependencies]
 image = "0.25.9"
+rust_xlsxwriter = "0.92.3"
